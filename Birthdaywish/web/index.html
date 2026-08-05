@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ms">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LEVEL UP! - Selamat Hari Lahir Fazreen ❤️</title>
+
+        <!-- Google Pixel Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+
+        <!-- FontAwesome Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+        <!-- Pemain Muzik BGM 8-Bit Floating -->
+        <audio id="bgMusic" loop>
+            <source src="music/1.mp3" type="audio/mpeg">
+        </audio>
+        <button id="musicToggle" class="pixel-btn music-btn" title="BGM On/Off">
+            <i class="fas fa-volume-up"></i>
+        </button>
+
+        <!-- BAHAGIAN 1: HERO (TETINGKAP GAME START) -->
+        <section class="hero-section">
+            <div class="arcade-card">
+                <div class="pixel-header">
+                    <span class="blink-text">★ PRESS START TO PLAY ★</span>
+                </div>
+
+                <h1 class="main-title">MAIN PLAYER</h1>
+                <h2 class="name-title">FAZREEN 👑</h2>
+
+                <!-- Health Bar & Player Stats -->
+                <div class="stats-box">
+                    <div class="stat-row">
+                        <span class="stat-label">UMUR:</span>
+                        <span class="stat-value">23</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">HP BAR:</span>
+                        <div class="hp-bar-outer">
+                            <div class="hp-bar-inner"></div>
+                        </div>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">QUEST:</span>
+                        <span class="stat-value green">Birthday Special 🎉</span>
+                    </div>
+                </div>
+
+                <!-- BUTANG GAME LARI -->
+                <div class="btn-container">
+                    <button id="openGift" class="pixel-btn start-btn">
+                        ▶ START GAME
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAHAGIAN 2: QUEST COMPLETE (KEJUTAN) -->
+        <section id="surprise" class="surprise-section hidden">
+            <div class="pixel-box glow-box">
+                <div class="achievement-banner">
+                    🏆 ACHIEVEMENT UNLOCKED!
+                </div>
+                <h1 class="birthday-banner">🎉 LEVEL UP! HAPPY BIRTHDAY 🎉</h1>
+                <div class="typing-container">
+                    <p id="typing" class="typing-text"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAHAGIAN 3: DYNAMIC INVENTORY GALLERY -->
+        <section class="gallery-section">
+            <h2 class="section-title">🕹️ INVENTORY / MEMORY QUESTS</h2>
+            <p class="section-sub">Klik pada item untuk melihat maklumat penuh & khazanah kenangan:</p>
+
+            <!-- Dynamic Filter Tabs -->
+            <div class="inventory-filters">
+                <button class="filter-btn active" data-filter="all">ALL ITEMS</button>
+            </div>
+
+            <div class="photo-grid">
+                <!-- Item 1 -->
+                <div class="pixel-card" data-category="rare" 
+                     data-title="Momen awal-awal" 
+                     data-date="Quest #01" 
+                     data-rarity="RARE ITEM ✦✦✦"
+                     data-desc="waktu ni aq sruh hg tuk gi la keluar dengan kawan ii release tension tahu ii hg bagi gambar ni tanya ok ke x? Aq un jawab la mcm cg disiplin gaya nya">
+                    <div class="card-badge rare">RARE</div>
+                    <div class="photo-frame">
+                        <img src="images/2.jpeg" alt="Memori 1">
+                    </div>
+                    <p class="caption">Awal mula pertama mula </p>
+                    <span class="inspect-tag">[ KLIK INSPECT ]</span>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="pixel-card" data-category="epic" 
+                     data-title="Senyuman Indah" 
+                     data-date="Quest #02" 
+                     data-rarity="EPIC ITEM ★★★"
+                     data-desc="Momen penuh gelak tawa dan keceriaan. Mempunyai aura aura positif yang sangat tinggi!">
+                    <div class="card-badge epic">EPIC</div>
+                    <div class="photo-frame">
+                        <img src="images/1.jpeg" alt="Memori 2">
+                    </div>
+                    <p class="caption">Senyuman Indah 😊</p>
+                    <span class="inspect-tag">[ KLIK INSPECT ]</span>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="pixel-card" data-category="rare" 
+                     data-title="Kenangan time hg lawatan PULAMOR" 
+                     data-date="Quest #03" 
+                     data-rarity="LEGENDARY 👑"
+                     data-desc="time ni hg pergi lawatan tapi time tu aq dh balik tapi hg still layan aq kalau aq chat. Time ni aq happy la ade jgk org nk lyn aq ni">
+                    <div class="card-badge legendary">LEGENDARY</div>
+                    <div class="photo-frame">
+                        <img src="images/3.jpeg" alt="Memori 3">
+                    </div>
+                    <p class="caption">ni tinggal hg je </p>
+                    <span class="inspect-tag">[ KLIK INSPECT ]</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ITEM DETAIL MODAL (Pop-Up Inspeksi Item) -->
+        <div id="itemModal" class="modal-overlay hidden">
+            <div class="modal-card">
+                <button id="closeModal" class="modal-close">&times;</button>
+                <div class="modal-header">
+                    <span id="modalRarity" class="modal-rarity"></span>
+                    <h3 id="modalTitle" class="modal-title"></h3>
+                </div>
+                <div class="modal-body">
+                    <img id="modalImg" src="" alt="Item Zoom">
+                    <div class="modal-info">
+                        <p id="modalDate" class="modal-date"></p>
+                        <p id="modalDesc" class="modal-desc"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BAHAGIAN 4: FINAL QUEST MESSAGE (WARKAH DIALOG RPG) -->
+        <section class="message-section">
+            <div class="dialog-box">
+                <div class="character-portrait">
+                    <i class="fas fa-heart pixel-heart"></i>
+                </div>
+                <div class="dialog-content">
+                    <h3 class="dialog-speaker">SPECIAL MESSAGE:</h3>
+                    <p class="letter-body">
+                        Buat Fazreen yang istimewa HEHEHE,
+                        <br><br>
+                        Selamat Hari Lahir! 🎉❤️
+                        <br><br>
+                        Semoga setiap langkah yang hg ambil sentiasa dipermudahkan, setiap doa yang dipanjatkan dimakbulkan, dan setiap impian yang disimpan menjadi kenyataan pada waktu yang terbaik.
+                        <br><br>
+                        Semoga Allah sentiasa mengurniakan hg kesihatan yang baik, rezeki yang melimpah, kebahagiaan yang berpanjangan, serta melindungi hg dalam setiap perjalanan kehidupan.
+                        <br><br>
+                        Terima kasih kerana menjadi seorang yang baik, penyayang dan sentiasa membawa keceriaan kepada orang di sekeliling. Semoga senyuman hg tidak pernah pudar dan hari-hari yang mendatang dipenuhi dengan kenangan yang indah.
+                        <br><br>
+                        Nikmatilah hari istimewa ini dengan penuh kegembiraan kerana hg benar-benar layak untuk diraikan.
+                        <br><br>
+                        <strong>Selamat Hari Lahir, Fazreen. Semoga segala yang baik sentiasa mengiringi setiap langkahmu. ❤️🎂</strong>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAHAGIAN NEW: SECRET VIDEO VAULT (DENGAN PASSWORD & ANIMASI) -->
+        <section class="video-vault-section">
+            <div class="vault-card pixel-box">
+                <div class="vault-header">
+                    <i class="fas fa-lock lock-icon pulse-animation" id="vaultIcon"></i>
+                    <h2>🔒 SECRET MEMORY VAULT</h2>
+                    <p>Masukkan Kata Laluan Rahsia Untuk Membuka Video</p>
+                </div>
+
+                <!-- Form Password Lock -->
+                <div id="passwordContainer" class="password-box">
+                    <div class="input-wrapper">
+                        <input type="password" id="videoPassword" placeholder="PASSWORD..." class="pixel-input">
+                        <button id="unlockBtn" class="pixel-btn unlock-btn">
+                            <i class="fas fa-key"></i> UNLOCK
+                        </button>
+                    </div>
+                    <p id="errorMsg" class="error-msg hidden">⚠️ KATA LALUAN SALAH! CUBA LAGI.</p>
+                </div>
+
+                <!-- Player Video (Tersembunyi Sebelum Password Betul) -->
+                <div id="videoContainer" class="video-wrapper hidden scale-up-animation">
+                    <div class="video-frame">
+                        <video id="secretVideo" >
+                            <source src="video/1.mp4" type="video/mp4">
+                            Browser anda tidak menyokong tag video.
+                        </video>
+                    </div>
+                    <p class="video-caption">🎬 Special Video Quest Unlocked!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAHAGIAN 5: GAME OVER / VICTORY -->
+        <section class="final-section">
+            <h2>GAME CLEAR! THANKS FOR PLAYING ✨</h2>
+            <p class="thank-you">Terima kasih sebab kawan dengan aku.</p>
+            <div class="pixel-heart-big">❤️</div>
+        </section>
+
+        <!-- Canvas untuk Konfeti -->
+        <canvas id="confetti"></canvas>
+
+        <!-- Pustaka Konfeti & Script Utama -->
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

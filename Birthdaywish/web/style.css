@@ -1,0 +1,916 @@
+/* ==========================================
+   GLOBAL & RESET STYLES (ENHANCED WITH ARCADE ANIMATIONS)
+   ========================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0b0b18;
+    /* Latar belakang grid arked & pendaran vignette */
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(26, 26, 60, 0.8) 0%, rgba(11, 11, 24, 0.95) 100%),
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 20px 20px, 20px 20px;
+    color: #ffffff;
+    font-family: 'VT323', monospace;
+    overflow-x: hidden;
+    line-height: 1.4;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* 1. ANIMASI BINTANG-BINTANG PIXEL BERGERAK (STARFIELD BG) */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 40px 70px, #00fff0, rgba(0,0,0,0)),
+        radial-gradient(3px 3px at 80px 120px, #f8e71c, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 150px 40px, #ff0055, rgba(0,0,0,0)),
+        radial-gradient(3px 3px at 220px 180px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 300px 90px, #00fff0, rgba(0,0,0,0)),
+        radial-gradient(3px 3px at 380px 240px, #ff0055, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 450px 150px, #f8e71c, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 500px 500px;
+    z-index: -2;
+    opacity: 0.65;
+    animation: spaceStars 20s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes spaceStars {
+    0% { background-position: 0 0; }
+    100% { background-position: 500px 1000px; }
+}
+
+/* 2. ANIMASI RETRO SYNTHWAVE GRID DI BAHAGIAN BAWAH SKRIN */
+.hero-section::before {
+    content: "";
+    position: fixed;
+    bottom: -10%;
+    left: -50%;
+    width: 200vw;
+    height: 45vh;
+    background-image: 
+        linear-gradient(rgba(0, 255, 240, 0.2) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(0, 255, 240, 0.2) 2px, transparent 2px);
+    background-size: 50px 50px;
+    transform: perspective(300px) rotateX(60deg);
+    animation: gridMove 3s linear infinite;
+    z-index: -1;
+    pointer-events: none;
+    mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+}
+
+@keyframes gridMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 50px; }
+}
+
+/* Kesan Scanline Arked CRT pada Seluruh Skrin */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+    background-size: 100% 4px;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Scrollbar Style Pixel Custom */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: #0f0f23;
+    border-left: 2px solid #e94560;
+}
+::-webkit-scrollbar-thumb {
+    background: #e94560;
+    border: 3px solid #0b0b18;
+    box-shadow: inset 1px 1px 0px #fff;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #ff6b6b;
+}
+
+/* Canvas Confetti */
+#confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Utility Class */
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================
+   FLOATING BGM MUSIC BUTTON
+   ========================================== */
+.music-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    padding: 10px 16px;
+    background-color: #f8e71c;
+    color: #000;
+    border: 3px solid #fff;
+    box-shadow: 4px 4px 0px #000, 0 0 12px rgba(248, 231, 28, 0.6);
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-family: 'Press Start 2P', cursive;
+    transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.music-btn:hover {
+    background-color: #fff;
+    transform: scale(1.08);
+    box-shadow: 5px 5px 0px #000, 0 0 18px rgba(255, 255, 255, 0.8);
+}
+
+.music-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #000;
+}
+
+/* ==========================================
+   BUTTONS & GENERAL PIXEL COMPONENTS
+   ========================================== */
+.pixel-btn {
+    font-family: 'Press Start 2P', cursive;
+    text-transform: uppercase;
+    outline: none;
+    cursor: pointer;
+}
+
+.start-btn {
+    font-size: 1rem;
+    padding: 16px 28px;
+    background-color: #4ecc2d;
+    color: #000;
+    border: 4px solid #fff;
+    box-shadow: 6px 6px 0px #000, 0 0 15px rgba(78, 204, 45, 0.5);
+    transition: all 0.15s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.start-btn:hover {
+    background-color: #62e341;
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0px #000, 0 0 22px rgba(98, 227, 65, 0.8);
+}
+
+.start-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 3px 3px 0px #000;
+}
+
+/* ==========================================
+   BAHAGIAN 1: HERO SECTION
+   ========================================== */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+}
+
+.arcade-card {
+    background: linear-gradient(135deg, #1f1f3a 0%, #121225 100%);
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 4px #000, 10px 10px 0px 4px #e94560, 0 0 30px rgba(233, 69, 96, 0.3);
+    padding: 35px 30px;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+.pixel-header {
+    margin-bottom: 25px;
+}
+
+.blink-text {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.75rem;
+    color: #f8e71c;
+    text-shadow: 0 0 8px rgba(248, 231, 28, 0.8);
+    animation: blink 0.9s infinite;
+}
+
+@keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0.2; }
+}
+
+.main-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2rem;
+    color: #00fff0;
+    margin-bottom: 12px;
+    text-shadow: 3px 3px #000, 0 0 10px rgba(0, 255, 240, 0.6);
+}
+
+.name-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 25px;
+    text-shadow: 3px 3px #e94560, 0 0 12px rgba(233, 69, 96, 0.8);
+    letter-spacing: 1px;
+}
+
+/* Stats Box & Health Bar */
+.stats-box {
+    background-color: #0b2242;
+    border: 3px solid #fff;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 4px 4px 0px #000;
+    padding: 18px;
+    margin-bottom: 28px;
+    text-align: left;
+}
+
+.stat-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+}
+
+.stat-row:last-child {
+    margin-bottom: 0;
+}
+
+.stat-label {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    color: #00fff0;
+    text-shadow: 1px 1px #000;
+}
+
+.stat-value {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    color: #fff;
+}
+
+.stat-value.green {
+    color: #4ecc2d;
+    text-shadow: 0 0 6px rgba(78, 204, 45, 0.7);
+}
+
+.hp-bar-outer {
+    width: 150px;
+    height: 20px;
+    background-color: #000;
+    border: 2px solid #fff;
+    padding: 2px;
+    box-shadow: 2px 2px 0px #000;
+}
+
+.hp-bar-inner {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff0055, #ff5500);
+    box-shadow: inset 0 0 5px #fff, 0 0 8px rgba(255, 0, 85, 0.8);
+    animation: hpPulse 2s infinite alternate;
+}
+
+@keyframes hpPulse {
+    0% { opacity: 0.85; }
+    100% { opacity: 1; filter: drop-shadow(0 0 3px #ff0055); }
+}
+
+/* ==========================================
+   BAHAGIAN 2: QUEST COMPLETE (SURPRISE)
+   ========================================== */
+.surprise-section {
+    padding: 50px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.pixel-box {
+    background: linear-gradient(180deg, #182848 0%, #101827 100%);
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 4px #000, 8px 8px 0px 4px #00fff0, 0 0 25px rgba(0, 255, 240, 0.25);
+    padding: 30px;
+    max-width: 680px;
+    width: 100%;
+    text-align: center;
+}
+
+.achievement-banner {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.75rem;
+    background-color: #f8e71c;
+    color: #000;
+    padding: 8px 14px;
+    display: inline-block;
+    margin-bottom: 20px;
+    border: 3px solid #000;
+    box-shadow: 3px 3px 0px #fff;
+    letter-spacing: 1px;
+}
+
+.birthday-banner {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2rem;
+    color: #ff0055;
+    margin-bottom: 22px;
+    line-height: 1.6;
+    text-shadow: 3px 3px #000, 0 0 10px rgba(255, 0, 85, 0.5);
+}
+
+.typing-container {
+    background-color: #05050a;
+    border: 3px solid #00fff0;
+    box-shadow: inset 0 0 10px rgba(0,255,240,0.2), 4px 4px 0px #000;
+    padding: 18px;
+    min-height: 90px;
+    text-align: left;
+}
+
+.typing-text {
+    font-size: 1.35rem;
+    color: #00fff0;
+    text-shadow: 0 0 5px rgba(0, 255, 240, 0.5);
+}
+
+/* ==========================================
+   BAHAGIAN 3: GALLERY & INVENTORY
+   ========================================== */
+.gallery-section {
+    padding: 60px 20px;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.3rem;
+    color: #f8e71c;
+    text-align: center;
+    margin-bottom: 12px;
+    text-shadow: 3px 3px #000, 0 0 10px rgba(248, 231, 28, 0.5);
+}
+
+.section-sub {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #a0a0c0;
+    margin-bottom: 35px;
+}
+
+.inventory-filters {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.65rem;
+    padding: 10px 16px;
+    background-color: #0b2242;
+    color: #fff;
+    border: 2px solid #fff;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px #000;
+    transition: all 0.15s ease;
+}
+
+.filter-btn:hover {
+    background-color: #1a3a68;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background-color: #e94560;
+    box-shadow: 4px 4px 0px #000, 0 0 10px rgba(233, 69, 96, 0.8);
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 30px;
+}
+
+.pixel-card {
+    background-color: #121225;
+    border: 3px solid #fff;
+    box-shadow: 6px 6px 0px #000;
+    padding: 15px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.pixel-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    border-color: #00fff0;
+    box-shadow: 8px 8px 0px #000, 0 0 15px rgba(0, 255, 240, 0.4);
+}
+
+.card-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.55rem;
+    padding: 4px 8px;
+    border: 2px solid #000;
+    box-shadow: 2px 2px 0px #000;
+    z-index: 2;
+}
+
+.card-badge.rare { background-color: #0070dd; color: #fff; text-shadow: 1px 1px #000; }
+.card-badge.epic { background-color: #a335ee; color: #fff; text-shadow: 1px 1px #000; }
+.card-badge.legendary { background-color: #ff8000; color: #fff; text-shadow: 1px 1px #000; }
+
+.photo-frame {
+    width: 100%;
+    height: 210px;
+    border: 2px solid #000;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background-color: #000;
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.pixel-card:hover .photo-frame img {
+    transform: scale(1.08);
+}
+
+.caption {
+    font-size: 1.25rem;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.inspect-tag {
+    display: block;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.55rem;
+    color: #f8e71c;
+    text-align: center;
+    text-shadow: 1px 1px #000;
+}
+
+/* ==========================================
+   MODAL INSPEKSI ITEM
+   ========================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(5, 5, 12, 0.92);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.modal-card {
+    background: linear-gradient(135deg, #182848 0%, #0b1320 100%);
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 4px #000, 10px 10px 0px 4px #f8e71c, 0 0 30px rgba(248, 231, 28, 0.3);
+    max-width: 520px;
+    width: 100%;
+    padding: 25px;
+    position: relative;
+    animation: modalPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 2.2rem;
+    color: #ff0055;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-shadow: 2px 2px #000;
+    transition: transform 0.15s;
+}
+
+.modal-close:hover {
+    transform: scale(1.2) rotate(90deg);
+}
+
+.modal-header {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.modal-rarity {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.65rem;
+    color: #f8e71c;
+    display: block;
+    margin-bottom: 6px;
+    text-shadow: 1px 1px #000;
+}
+
+.modal-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.95rem;
+    color: #fff;
+    text-shadow: 2px 2px #000;
+}
+
+.modal-body img {
+    width: 100%;
+    max-height: 260px;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 4px 4px 0px #000;
+    margin-bottom: 15px;
+}
+
+.modal-date {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.65rem;
+    color: #4ecc2d;
+    margin-bottom: 12px;
+    text-shadow: 1px 1px #000;
+}
+
+.modal-desc {
+    font-size: 1.25rem;
+    color: #e0e0e0;
+    line-height: 1.4;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 12px;
+    border-left: 3px solid #f8e71c;
+}
+
+/* ==========================================
+   BAHAGIAN 4: SPECIAL MESSAGE (RPG DIALOG)
+   ========================================== */
+.message-section {
+    padding: 50px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.dialog-box {
+    background: linear-gradient(180deg, #0f3460 0%, #081c36 100%);
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 4px #000, 8px 8px 0px 4px #e94560, 0 0 20px rgba(233, 69, 96, 0.3);
+    max-width: 720px;
+    width: 100%;
+    padding: 25px;
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+    position: relative;
+}
+
+.character-portrait {
+    background-color: #0b0b18;
+    border: 3px solid #fff;
+    box-shadow: 4px 4px 0px #000;
+    padding: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pixel-heart {
+    font-size: 2.8rem;
+    color: #ff0055;
+    filter: drop-shadow(0 0 6px #ff0055);
+    animation: heartBeat 0.9s infinite alternate;
+}
+
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.22); }
+}
+
+.dialog-content {
+    flex: 1;
+}
+
+.dialog-speaker {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.85rem;
+    color: #f8e71c;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px #000;
+    border-bottom: 2px dashed rgba(255, 255, 255, 0.3);
+    padding-bottom: 6px;
+}
+
+.letter-body {
+    font-size: 1.3rem;
+    color: #ffffff;
+    line-height: 1.55;
+}
+
+/* ==========================================
+   SECRET VIDEO VAULT SECTION
+   ========================================== */
+.video-vault-section {
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vault-card {
+    background: linear-gradient(135deg, #1f1f3a 0%, #0d0d1a 100%);
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 4px #000, 8px 8px 0px 4px #e94560, 0 0 25px rgba(233, 69, 96, 0.3);
+    padding: 35px 25px;
+    max-width: 680px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+.vault-header h2 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.15rem;
+    color: #f8e71c;
+    margin: 18px 0 12px 0;
+    text-shadow: 2px 2px #000, 0 0 8px rgba(248, 231, 28, 0.5);
+}
+
+.vault-header p {
+    font-size: 1.35rem;
+    color: #e0e0e0;
+    margin-bottom: 28px;
+}
+
+/* Lock Icon & Animations */
+.lock-icon {
+    font-size: 3.2rem;
+    color: #e94560;
+    text-shadow: 3px 3px 0px #000, 0 0 12px rgba(233, 69, 96, 0.8);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.pulse-animation {
+    animation: lockPulse 1.6s infinite alternate;
+}
+
+@keyframes lockPulse {
+    0% { transform: scale(1); color: #e94560; }
+    100% { transform: scale(1.18); color: #ff6b6b; filter: drop-shadow(0 0 8px #ff6b6b); }
+}
+
+.unlocked-animation {
+    color: #4ecc2d !important;
+    animation: unlockPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes unlockPop {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.35) rotate(-15deg); }
+    100% { transform: scale(1.1) rotate(0deg); filter: drop-shadow(0 0 10px #4ecc2d); }
+}
+
+/* Form Password */
+.password-box {
+    margin-top: 15px;
+}
+
+.input-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.pixel-input {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.85rem;
+    padding: 14px 16px;
+    background-color: #0b1a30;
+    color: #fff;
+    border: 3px solid #fff;
+    outline: none;
+    box-shadow: 4px 4px 0px #000;
+    width: 230px;
+    text-align: center;
+    letter-spacing: 2px;
+    transition: all 0.2s;
+}
+
+.pixel-input::placeholder {
+    color: #687b9e;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+}
+
+.pixel-input:focus {
+    border-color: #f8e71c;
+    background-color: #122848;
+    box-shadow: 4px 4px 0px #000, 0 0 10px rgba(248, 231, 28, 0.5);
+}
+
+.unlock-btn {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    padding: 14px 20px;
+    background-color: #e94560;
+    color: #fff;
+    border: 3px solid #fff;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px #000;
+    transition: all 0.15s ease;
+}
+
+.unlock-btn:hover {
+    background-color: #ff6b6b;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000, 0 0 12px rgba(255, 107, 107, 0.6);
+}
+
+.unlock-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #000;
+}
+
+.error-msg {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.65rem;
+    color: #ff4d4d;
+    margin-top: 18px;
+    text-shadow: 1px 1px #000;
+}
+
+.shake-animation {
+    animation: pixelShake 0.4s ease-in-out;
+}
+
+@keyframes pixelShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+}
+
+/* Video Player Display */
+.video-wrapper {
+    margin-top: 25px;
+}
+
+.video-frame {
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 4px #000, 6px 6px 0px 4px #4ecc2d, 0 0 20px rgba(78, 204, 45, 0.4);
+    background-color: #000;
+    overflow: hidden;
+    position: relative;
+}
+
+.video-frame video {
+    width: 100%;
+    max-height: 400px;
+    display: block;
+    outline: none;
+}
+
+.video-caption {
+    font-size: 1.45rem;
+    color: #4ecc2d;
+    margin-top: 18px;
+    text-shadow: 2px 2px #000, 0 0 8px rgba(78, 204, 45, 0.6);
+}
+
+.scale-up-animation {
+    animation: scaleUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes scaleUp {
+    0% { opacity: 0; transform: scale(0.6); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* ==========================================
+   3. ANIMASI OBJEK PIXEL TERAPUNG (FLOATING ITEMS)
+   ========================================== */
+.floating-pixels {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.pixel-float {
+    position: absolute;
+    font-size: 1.8rem;
+    opacity: 0.5;
+    animation: floatUp 8s infinite ease-in-out;
+}
+
+.p1 { left: 5%; animation-duration: 9s; animation-delay: 0s; }
+.p2 { left: 88%; animation-duration: 11s; animation-delay: 2s; }
+.p3 { left: 12%; animation-duration: 7s; animation-delay: 4s; }
+.p4 { left: 82%; animation-duration: 10s; animation-delay: 1s; }
+
+@keyframes floatUp {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    20% { opacity: 0.6; }
+    80% { opacity: 0.6; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
+
+/* ==========================================
+   BAHAGIAN 5: FINAL SECTION
+   ========================================== */
+.final-section {
+    padding: 70px 20px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 50%, rgba(233, 69, 96, 0.15) 0%, transparent 70%);
+}
+
+.final-section h2 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.1rem;
+    color: #00fff0;
+    margin-bottom: 18px;
+    text-shadow: 2px 2px #000, 0 0 8px rgba(0, 255, 240, 0.6);
+}
+
+.thank-you {
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 25px;
+}
+
+.pixel-heart-big {
+    font-size: 4.5rem;
+    color: #ff0055;
+    filter: drop-shadow(0 0 10px #ff0055);
+    animation: heartBeat 0.9s infinite alternate;
+}
+
+/* RESPONSIVE LAYOUT FOR MOBILE */
+@media (max-width: 600px) {
+    .dialog-box {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .hp-bar-outer {
+        width: 110px;
+    }
+    .input-wrapper {
+        flex-direction: column;
+    }
+    .pixel-input, .unlock-btn {
+        width: 100%;
+    }
+}
